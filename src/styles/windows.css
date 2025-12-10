@@ -1,0 +1,151 @@
+/* Mac OS 9 Style Windows */
+
+.window {
+  position: absolute;
+  background: #48ffda;
+  border-radius: 0;
+  border: 1px solid var(--window-border);
+  box-shadow: 
+    3px 3px 5px rgba(0, 0, 0, 0.1),
+    0 0 1px rgba(0, 0, 0, 0.2);
+  min-width: 300px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-system);
+  font-size: 13px;
+  z-index: 100;
+  cursor: default;
+  overflow: hidden;
+}
+
+.window.active {
+  z-index: 1000;
+  box-shadow: 
+    6px 6px 20px rgba(0, 0, 0, 0.4),
+    0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.window-titlebar {
+  background: #f7c1ca;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move;
+  user-select: none;
+  height: 22px;
+  border-bottom: 1px solid var(--window-border);
+  border-radius: 0;
+  position: relative;
+}
+
+.window.active .window-titlebar {
+  background: #f7c1ca;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  position: absolute;
+  left: 8px;
+}
+
+.window-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: transparent;
+  transition: all 0.15s;
+}
+
+.window-btn:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.window-btn.close {
+  background: #FF5F57;
+  border-color: #E14640;
+}
+
+.window-btn.minimize {
+  background: #FFBD2E;
+  border-color: #DFA123;
+}
+
+.window-btn.maximize {
+  background: #28CA41;
+  border-color: #1AAB29;
+}
+
+.window-title {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.window-content {
+  flex: 1;
+  background: #f7c1ca;
+  padding: 0;
+  overflow: auto;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: #e8a8b3 #f7c1ca;
+}
+
+.window-content-inner {
+  padding: 16px;
+}
+
+.window-content::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: #f7c1ca;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f7c1ca 0%, #e8a8b3 100%);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #e8a8b3 0%, #d995a2 100%);
+}
+
+/* Striped titlebar pattern */
+.window-titlebar::before {
+  content: '';
+  position: absolute;
+  left: 70px;
+  right: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 10px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.1) 1px,
+    rgba(0, 0, 0, 0.1) 2px
+  );
+  pointer-events: none;
+}

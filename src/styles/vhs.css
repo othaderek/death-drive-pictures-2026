@@ -1,0 +1,66 @@
+/* Subtle VHS-inspired effects */
+
+.vhs-static {
+  position: relative;
+}
+
+.vhs-tracking {
+  position: relative;
+}
+
+.vhs-tracking::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: tracking-line 4s infinite;
+  pointer-events: none;
+  z-index: 11;
+  opacity: 0.5;
+}
+
+@keyframes tracking-line {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Tape counter effect */
+.tape-counter {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+/* Media player styling */
+.media-player {
+  background: #1a1a1a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.media-player-screen {
+  background: #000;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.media-player-controls {
+  background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

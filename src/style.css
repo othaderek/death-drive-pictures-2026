@@ -1,0 +1,97 @@
+:root {
+  /* Light blue palette */
+  --bg-primary: #8ccae9;
+  --bg-secondary: #a8d5f0;
+  --bg-light: #c4e0f7;
+  
+  /* Window colors - White with thin black borders */
+  --window-bg: #FFFFFF;
+  --window-titlebar: #FFFFFF;
+  --window-titlebar-active: #FFFFFF;
+  --window-border: #000000;
+  --window-border-light: #FFFFFF;
+  --window-border-dark: #000000;
+  
+  /* Accent colors */
+  --accent-blue: #8ccae9;
+  --accent-blue-light: #a8d5f0;
+  --accent-blue-dark: #6bb5d9;
+  --accent-mint: #98D8C8;
+  --accent-cream: #FFF5E6;
+  
+  /* Text colors */
+  --text-dark: #1a1a1a;
+  --text-medium: #4a4a4a;
+  --text-light: #ffffff;
+  
+  /* Fonts */
+  --font-script: 'calder-script', 'Calder Script', cursive;
+  --font-system: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'VT323', monospace;
+  
+  font-family: var(--font-system);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+  
+  color: var(--text-dark);
+  background-color: var(--bg-primary);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle texture overlay */
+.texture-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Text effects */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.flicker {
+  animation: flicker 4s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  97% { opacity: 1; }
+  98% { opacity: 0.8; }
+  99% { opacity: 1; }
+}
