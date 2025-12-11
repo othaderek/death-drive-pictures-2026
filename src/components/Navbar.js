@@ -8,7 +8,7 @@ export function createNavbar() {
   // Left side - Logo
   const logo = document.createElement('div');
   logo.className = 'navbar-logo';
-  logo.innerHTML = `<span class="logo-text">death drive pictures</span>`;
+  logo.innerHTML = `<span class="logo-text">DEATH DRIVE PICTURES</span>`;
   navbar.appendChild(logo);
 
   // Right side - Status
