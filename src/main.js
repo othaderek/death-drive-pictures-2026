@@ -52,15 +52,33 @@ function initApp() {
       font-size: 18px;
       color: #333;
       letter-spacing: 0.5px;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeSpeed;
     }
     
     .navbar-status {
       font-size: 12px;
       color: #666;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeSpeed;
     }
     
     .navbar-clock {
       font-variant-numeric: tabular-nums;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeSpeed;
     }
     
     /* Desktop styles */
@@ -136,10 +154,22 @@ function initApp() {
       
       .logo-text {
         font-size: 14px;
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        -webkit-font-smoothing: none;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeSpeed;
       }
       
       .navbar-clock {
         font-size: 10px;
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        -webkit-font-smoothing: none;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeSpeed;
       }
       
       .desktop-icon {
@@ -191,6 +221,12 @@ function initApp() {
       
       .logo-text {
         font-size: 12px;
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        -webkit-font-smoothing: none;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeSpeed;
       }
       
       .desktop-icon {
@@ -232,7 +268,7 @@ function initApp() {
   
   // Open landing window on load
   setTimeout(() => {
-    openWindow('landing');
+    openWindow('about');
   }, 300);
 }
 
