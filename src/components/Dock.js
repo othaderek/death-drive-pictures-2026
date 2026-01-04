@@ -11,7 +11,7 @@ export function createDock() {
     { id: 'work', label: 'Our Work', icon: createWorkIcon() },
     { id: 'about', label: 'About Us', icon: createAboutIcon() },
     { id: 'contact', label: 'Contact', icon: createContactIcon() },
-    { id: 'instagram', label: 'Instagram', icon: createInstagramIcon(), external: 'https://instagram.com' },
+    { id: 'instagram', label: 'Instagram', icon: createInstagramIcon(), external: 'https://www.instagram.com/deathdrivepictures/' },
   ];
 
   dockItems.forEach(item => {

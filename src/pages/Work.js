@@ -1,109 +1,525 @@
-// Work Page - Poolsuite style
+// Work Page - CRT TV + VHS Tape Shelf Interface
 
 export function Work() {
   const container = document.createElement('div');
-  container.className = 'work-page';
+  container.className = 'work-page vhs-interface';
   
   const projects = [
-    { title: 'The Frequency', year: '2024', type: 'Short Film', color: '#8ccae9' },
-    { title: 'Static Memory', year: '2024', type: 'Documentary', color: '#98D8C8' },
-    { title: 'Neon Requiem', year: '2023', type: 'Feature', color: '#a8d5f0' },
-    { title: 'Analog Dreams', year: '2023', type: 'Music Video', color: '#c4e0f7' },
-    { title: 'The Last Signal', year: '2022', type: 'Short Film', color: '#6bb5d9' },
-    { title: 'Vapor Trail', year: '2022', type: 'Commercial', color: '#98D8C8' },
+    { title: 'The Inheritance', year: '2024', type: 'Short Film', spine: '/src/assets/vhs-spines/the_inheritance.jpeg' },
+    { title: 'The Executive Assistant', year: '2024', type: 'Short Film', spine: '/src/assets/vhs-spines/the_executive_assitant.jpeg' },
+    { title: 'No Fly List - Close to Closure', year: '2025', type: 'Music Video', spine: '/src/assets/vhs-spines/nfl-close_to_closure.jpeg' },
+    { title: 'Wakelee - Bangkok', year: '2025', type: 'Music Video', spine: '/src/assets/vhs-spines/wakelee_bangkok.jpeg' },
+    { title: 'Wakelee - Garys Outcome', year: '2025', type: 'Music Video', spine: '/src/assets/vhs-spines/wakelee-garys_outcome.jpeg' },
+    { title: 'Tips Up!', year: '2023', type: 'Short Film', spine: '/src/assets/vhs-spines/tips_up.jpeg' },
+    { title: 'Babygirl', year: '2022', type: 'Short Film', spine: '/src/assets/vhs-spines/babygirl.jpeg' },
   ];
   
   container.innerHTML = `
-    <div style="padding: 20px;">
-      <div style="
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #ddd;
-      ">
-        <div style="font-weight: 600; color: #333;">Archive</div>
-        <div style="font-size: 12px; color: #888;">${projects.length} Projects</div>
-      </div>
-      
-      <div id="projects-grid" style="
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-      ">
-        ${projects.map((project, index) => `
-          <div class="project-card" data-index="${index}" style="
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-          ">
-            <div style="
-              height: 100px;
-              background: ${project.color};
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              position: relative;
-            ">
-              <span style="font-size: 32px; opacity: 0.8;">▶</span>
-              <div style="
-                position: absolute;
-                top: 8px;
-                right: 8px;
-                background: rgba(0,0,0,0.5);
-                color: white;
-                font-size: 10px;
-                padding: 2px 6px;
-                border-radius: 4px;
-              ">${project.type}</div>
-            </div>
-            <div style="padding: 12px;">
-              <div style="font-weight: 600; font-size: 14px; color: #333; margin-bottom: 4px;">
-                ${project.title}
+    <div class="vhs-layout">
+      <!-- Left: CRT Television -->
+      <div class="crt-container">
+        <div class="crt-wrapper">
+          <!-- CRT TV Frame (background layer) -->
+          <img src="/src/assets/tv/crt_tv_for_website_no_glass.png" alt="CRT TV" class="crt-frame" />
+          
+          <!-- Video Container (middle layer - for video playback) -->
+          <div class="crt-screen-container" id="crt-screen-container">
+            <div class="crt-screen" id="crt-screen">
+              <!-- Video element will be inserted here -->
+              <div class="crt-static" id="crt-static">
+                <div class="static-text">NO SIGNAL</div>
               </div>
-              <div style="font-size: 12px; color: #888;">
-                ${project.year}
-              </div>
+              <!-- Canvas for WebGL effects will be added here -->
+              <canvas id="crt-canvas" class="crt-canvas"></canvas>
             </div>
           </div>
-        `).join('')}
+          
+          <!-- Glass Overlay (top layer) -->
+          <img src="/src/assets/tv/glass.jpg" alt="CRT Glass" class="crt-glass-overlay" />
+        </div>
+        
+        <div class="vcr-slot">
+          <div class="vcr-slot-opening" id="vcr-slot"></div>
+          <div class="vcr-label">VHS</div>
+        </div>
       </div>
       
-      <div style="
-        margin-top: 20px;
-        padding: 15px;
-        background: rgba(255,255,255,0.5);
-        border-radius: 8px;
-        text-align: center;
-      ">
-        <p style="font-size: 12px; color: #666; margin: 0;">
-          Click any project to view details
-        </p>
+      <!-- Right: VHS Tape Shelf -->
+      <div class="vhs-shelf">
+        <div class="shelf-wrapper">
+          <img src="/src/assets/tv/shelf_for_website.png" alt="VHS Shelf" class="shelf-frame" />
+          <div class="tape-rack-container">
+            <div class="tape-rack" id="tape-rack">
+        ${projects.map((project, index) => `
+                <div class="vhs-tape" data-index="${index}" data-title="${project.title}">
+                  <div class="tape-spine-wrapper">
+                    <img class="tape-spine-img" src="${project.spine}" alt="${project.title}" />
+            </div>
+              </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    
+    <style>
+      .vhs-interface {
+        background: #0a0a0a;
+        min-height: 100%;
+        max-height: calc(100vh - 40px);
+        padding: 20px;
+        font-family: 'Courier New', monospace;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+      }
+      
+      .vhs-layout {
+        display: flex;
+        gap: 30px;
+        align-items: stretch;
+        justify-content: center;
+        flex-wrap: nowrap;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+      
+      /* CRT Television */
+      .crt-container {
+        flex: 0 0 auto;
+        position: relative;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+      
+      .crt-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        max-height: 70vh;
+        box-sizing: border-box;
+      }
+      
+      .crt-frame {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+      }
+      
+      .crt-screen-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+      }
+      
+      .crt-screen {
+        position: absolute;
+        /* These values need to be adjusted based on your CRT frame image */
+        /* Position and size should match the screen cutout in crt_tv_for_website_no_glass.png */
+        top: 12%;
+        left: 8%;
+        width: 84%;
+        height: 65%;
+        background: #000;
+        overflow: hidden;
+        pointer-events: auto;
+      }
+      
+      .crt-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 3;
+      }
+      
+      .crt-static {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: 
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0,0,0,0.3) 2px,
+            rgba(0,0,0,0.3) 4px
+          );
+        animation: staticNoise 0.1s infinite;
+        position: relative;
+        z-index: 1;
+      }
+      
+      @keyframes staticNoise {
+        0%, 100% { opacity: 0.8; }
+        50% { opacity: 0.9; }
+      }
+      
+      .static-text {
+        color: rgba(0, 200, 0, 0.4);
+        font-size: 18px;
+        letter-spacing: 6px;
+        text-shadow: 0 0 10px rgba(0,255,0,0.3);
+        font-weight: bold;
+      }
+      
+      .crt-glass-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        opacity: 0.3;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+        z-index: 4;
+        box-sizing: border-box;
+      }
+      
+      .vcr-slot {
+        background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+        margin-top: 10px;
+        padding: 10px 15px;
+        border-radius: 0 0 15px 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .vcr-slot-opening {
+        flex: 1;
+        height: 12px;
+        background: #0a0a0a;
+        border-radius: 2px;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+      }
+      
+      .vcr-label {
+        color: #555;
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+      
+      /* VHS Tape Shelf */
+      .vhs-shelf {
+        flex: 0 0 250px;
+        width: 250px;
+        max-width: 100%;
+        max-height: 70vh;
+        box-sizing: border-box;
+      }
+      
+      .shelf-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      
+      .shelf-frame {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        display: block;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .tape-rack-container {
+        position: absolute;
+        top: 5%;
+        left: 8%;
+        width: 84%;
+        height: 90%;
+        z-index: 2;
+        pointer-events: none;
+      }
+      
+      .tape-rack {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5%;
+        height: 100%;
+        justify-content: space-between;
+        pointer-events: auto;
+      }
+      
+      .vhs-tape {
+        --spine-height: calc((100% - (1.5% * 6)) / 7); /* 7 tapes with 6 gaps */
+        --spine-width: 100%;
+        height: var(--spine-height);
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        border-radius: 2px;
+        overflow: visible;
+        box-sizing: border-box;
+        flex-shrink: 0;
+      }
+      
+      .vhs-tape:hover {
+        transform: translateX(-10px);
+        z-index: 10;
+      }
+      
+      .vhs-tape.selected {
+        transform: translateX(-15px);
+        z-index: 11;
+      }
+      
+      .tape-spine-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .tape-spine-img {
+        /* 
+         * Rotate image 90 degrees counter-clockwise.
+         * After rotation: CSS height -> displayed width, CSS width -> displayed height
+         * Height will be set dynamically by JavaScript to match container width
+         */
+        position: absolute;
+        /* Pre-rotation: width = desired display height, height = container width (set by JS) */
+        width: var(--spine-height);
+        height: 260px; /* Fallback, will be overridden by JavaScript */
+        object-fit: contain;
+        /* 
+         * Center the image, then rotate.
+         * Position image center at container center before rotation.
+         */
+        left: calc(50% - var(--spine-height) / 2);
+        top: 50%;
+        transform: translateY(-50%) rotate(-90deg);
+        transform-origin: center center;
+        border-radius: 2px;
+        box-shadow: 
+          0 2px 6px rgba(0,0,0,0.5),
+          inset 0 1px 0 rgba(255,255,255,0.1),
+          inset 0 -1px 0 rgba(0,0,0,0.2);
+        transition: box-shadow 0.3s ease, height 0.3s ease;
+      }
+      
+      .vhs-tape:hover .tape-spine-img {
+        box-shadow: 
+          4px 2px 15px rgba(0,0,0,0.8),
+          inset 0 1px 0 rgba(255,255,255,0.15),
+          inset 0 -1px 0 rgba(0,0,0,0.3);
+      }
+      
+      .vhs-tape.selected .tape-spine-img {
+        box-shadow: 
+          6px 3px 20px rgba(0,0,0,0.9),
+          0 0 20px rgba(255, 200, 0, 0.3),
+          inset 0 1px 0 rgba(255,255,255,0.2);
+      }
+      
+      /* Responsive */
+      @media (max-width: 1200px) {
+        .vhs-layout {
+          gap: 25px;
+        }
+        
+        .crt-wrapper {
+          max-width: 380px;
+          max-height: 65vh;
+        }
+        
+        .vhs-shelf {
+          flex: 0 0 240px;
+          width: 240px;
+        }
+      }
+      
+      @media (max-width: 700px) {
+        .vhs-layout {
+          flex-direction: column;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 30px;
+        }
+        
+        .crt-container {
+          width: 100%;
+          max-width: 100%;
+        }
+        
+        .crt-wrapper {
+          max-width: 500px;
+          max-height: none;
+          margin: 0 auto;
+        }
+        
+        .vhs-shelf {
+          flex: 0 0 auto;
+          width: 100%;
+          max-width: 400px;
+          max-height: none;
+        }
+        
+        .vhs-tape {
+          --spine-width: calc(100% - 0px); /* Container handles padding */
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .vhs-interface {
+        padding: 15px;
+        }
+        
+        .vhs-layout {
+          gap: 20px;
+        }
+        
+        .crt-wrapper {
+          max-width: 100%;
+        }
+        
+        .vhs-shelf {
+          width: 100%;
+          max-width: 100%;
+        }
+        
+        .vhs-tape {
+          --spine-width: 100%;
+        }
+        
+        .static-text {
+          font-size: 14px;
+          letter-spacing: 3px;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .vhs-interface {
+          padding: 10px;
+        }
+        
+        .vhs-layout {
+          gap: 15px;
+        }
+        
+        .crt-wrapper {
+          max-width: 100%;
+        }
+        
+        .vhs-shelf {
+          width: 100%;
+          max-width: 100%;
+        }
+        
+        .vhs-tape {
+          --spine-width: 100%;
+        }
+        
+        .static-text {
+          font-size: 12px;
+          letter-spacing: 2px;
+        }
+      }
+    </style>
   `;
   
-  // Add hover effects
+  // Add click handlers for VHS tapes
   setTimeout(() => {
-    const cards = container.querySelectorAll('.project-card');
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-4px)';
-        card.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0)';
-        card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-      });
-      card.addEventListener('click', () => {
-        const title = card.querySelector('div[style*="font-weight: 600"]').textContent.trim();
-        alert(`Opening: ${title}\n\n[Media player would open here]`);
+    const tapes = container.querySelectorAll('.vhs-tape');
+    const crtScreen = container.querySelector('#crt-screen');
+    const crtStatic = container.querySelector('#crt-static');
+    
+    let selectedTape = null;
+    
+    tapes.forEach((tape, index) => {
+      tape.addEventListener('click', () => {
+        const project = projects[index];
+        
+        // Update selected state
+        if (selectedTape) {
+          selectedTape.classList.remove('selected');
+        }
+        tape.classList.add('selected');
+        selectedTape = tape;
+        
+        // Update screen content
+        if (crtStatic) {
+          const staticText = crtStatic.querySelector('.static-text');
+          if (staticText) {
+            staticText.textContent = project.title.toUpperCase();
+          }
+        }
+        
+        console.log(`Selected tape: ${project.title}`);
+        // Future: trigger tape insertion animation and video playback
       });
     });
+    
+    // Calculate and set spine image widths dynamically
+    const updateSpineWidths = () => {
+      tapes.forEach((tape) => {
+        const wrapper = tape.querySelector('.tape-spine-wrapper');
+        if (wrapper) {
+          const wrapperWidth = wrapper.getBoundingClientRect().width;
+          const img = wrapper.querySelector('.tape-spine-img');
+          if (img) {
+            // Set height to wrapper width (becomes displayed width after rotation)
+            img.style.height = `${wrapperWidth}px`;
+          }
+        }
+      });
+    };
+    
+    // Update on load and resize
+    updateSpineWidths();
+    window.addEventListener('resize', updateSpineWidths);
+    
+    // Also update when images load
+    tapes.forEach((tape) => {
+      const img = tape.querySelector('.tape-spine-img');
+      if (img) {
+        img.addEventListener('load', updateSpineWidths);
+      }
+    });
+    
+    // Calculate CRT screen position based on frame image
+    // This will need adjustment based on your actual CRT frame dimensions
+    const crtFrame = container.querySelector('.crt-frame');
+    const crtScreenContainer = container.querySelector('.crt-screen-container');
+    
+    if (crtFrame && crtScreenContainer) {
+      // Wait for image to load
+      crtFrame.addEventListener('load', () => {
+        // Adjust screen container to match frame dimensions
+        const frameRect = crtFrame.getBoundingClientRect();
+        crtScreenContainer.style.height = `${frameRect.height}px`;
+        
+        // Update spine widths after CRT loads (in case layout shifted)
+        updateSpineWidths();
+        
+        // You may need to fine-tune these percentages based on your CRT image
+        // The screen position should align with the transparent cutout in the frame
+      });
+    }
   }, 0);
   
   return container;

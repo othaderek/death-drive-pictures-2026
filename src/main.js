@@ -79,7 +79,9 @@ function initApp() {
       -webkit-font-smoothing: none;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeSpeed;
-    }
+      font-family: var(--font-mono);
+      font-size: 18px;
+      }
     
     /* Desktop styles */
     .desktop {
@@ -265,6 +267,12 @@ function initApp() {
     }
   `;
   document.head.appendChild(style);
+
+  // Secret message
+  function secretMessage(){
+    return "If you are seeing this message it means that you are a part of the inner circle. Look for clues. The truth is out there... Welcome. 333.";
+  }
+  console.info(secretMessage());
   
   // Open landing window on load
   setTimeout(() => {

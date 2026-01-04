@@ -41,9 +41,13 @@ export function About() {
                 <span class="blink">●</span> WHO WE ARE <span class="blink">●</span>
               </div>
               <p class="main-text">
-                <strong>Death Drive Pictures</strong> exists in the <span class="highlight">liminal space</span> between 
-                memory and dream. We are a production company dedicated to crafting 
-                visual experiences that feel like <span class="mystery-text">fragments of something larger</span> — 
+              <strong>Death Drive Pictures</strong> exists in the <span class="highlight">liminal space</span> between 
+                memory and dream. We are dedicated to subversive narrative storytelling. We put an emphasis on elevated, genre-based cinema that grips you from start to finish.
+
+              Our goal is to create films that <span class="mystery-text">cut through the noise</span> of inexhaustible content by engaging the audience with a thrilling thematic exploration through character. <br/><br/>
+
+                We are a production company dedicated to crafting 
+                visual experiences that feel like
                 half-glimpsed, half-remembered.
               </p>
               <p class="main-text">
@@ -70,7 +74,7 @@ export function About() {
               <div class="quote-header">THE FOUNDERS SPEAK</div>
               <p class="quote-text">
                 "We don't just make films. We excavate feelings. 
-                We translate the untranslatable. We give form to 
+                We try to translate the untranslatable. We give form to 
                 the shadows at the edge of perception."
               </p>
               <div class="quote-author">— The Founders</div>
