@@ -1,4 +1,6 @@
 // Work Page - CRT TV + VHS Tape Shelf Interface
+import ddpFlagVideoUrl from '../assets/videos/ddp-flag.mp4?url';
+import ddpSquashVideoUrl from '../assets/videos/ddp-squash.mp4?url';
 
 export function Work() {
   const container = document.createElement('div');
@@ -26,6 +28,8 @@ export function Work() {
           <div class="crt-screen-container" id="crt-screen-container">
             <div class="crt-screen" id="crt-screen">
               <!-- Video element will be inserted here -->
+              <video class="crt-video" id="crt-video" autoplay loop muted playsinline 
+                     style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:fill;"></video>
               <div class="crt-static" id="crt-static">
                 <div class="static-text">NO SIGNAL</div>
               </div>
@@ -160,6 +164,18 @@ export function Work() {
         z-index: 3;
       }
       
+      .crt-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: fill !important;
+        z-index: 2;
+      }
+      
       .crt-static {
         width: 100%;
         height: 100%;
@@ -177,6 +193,10 @@ export function Work() {
         animation: staticNoise 0.1s infinite;
         position: relative;
         z-index: 1;
+      }
+      
+      .crt-static.hidden {
+        display: none;
       }
       
       @keyframes staticNoise {
@@ -455,6 +475,10 @@ export function Work() {
     const crtScreen = container.querySelector('#crt-screen');
     const crtStatic = container.querySelector('#crt-static');
     
+    // Randomly select a video (will be initialized after CRT frame loads)
+    const videos = [ddpFlagVideoUrl, ddpSquashVideoUrl];
+    const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+    
     let selectedTape = null;
     
     tapes.forEach((tape, index) => {
@@ -514,18 +538,39 @@ export function Work() {
     const crtScreenContainer = container.querySelector('.crt-screen-container');
     
     if (crtFrame && crtScreenContainer) {
-      // Wait for image to load
-      crtFrame.addEventListener('load', () => {
+      // Initialize video after CRT frame loads and container has dimensions
+      const initVideo = () => {
         // Adjust screen container to match frame dimensions
         const frameRect = crtFrame.getBoundingClientRect();
         crtScreenContainer.style.height = `${frameRect.height}px`;
+        
+        // NOW initialize video after container has dimensions
+        const crtVideo = container.querySelector('#crt-video');
+        if (crtVideo) {
+          crtVideo.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:fill;';
+          crtVideo.src = randomVideo;
+          crtVideo.load();
+          crtVideo.play().catch(() => {});
+        }
+        if (crtStatic) {
+          crtStatic.classList.add('hidden');
+        }
         
         // Update spine widths after CRT loads (in case layout shifted)
         updateSpineWidths();
         
         // You may need to fine-tune these percentages based on your CRT image
         // The screen position should align with the transparent cutout in the frame
-      });
+      };
+      
+      // Wait for image to load
+      crtFrame.addEventListener('load', initVideo);
+      
+      // Handle case where image is already cached (fires immediately)
+      if (crtFrame.complete) {
+        // Image already loaded (cached), trigger manually
+        initVideo();
+      }
     }
   }, 0);
   
