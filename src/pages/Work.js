@@ -141,10 +141,10 @@ export function Work() {
         position: absolute;
         /* These values need to be adjusted based on your CRT frame image */
         /* Position and size should match the screen cutout in crt_tv_for_website_no_glass.png */
-        top: 12%;
+        top: 8%;
         left: 8%;
         width: 84%;
-        height: 65%;
+        height: 58%;
         background: #000;
         overflow: hidden;
         pointer-events: auto;
@@ -274,10 +274,12 @@ export function Work() {
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
-        border-radius: 2px;
+        border-radius: 0px;
         overflow: visible;
         box-sizing: border-box;
         flex-shrink: 1; /* Allow shrinking to fit in shelf */
+        background: transparent;  /* Add this to be sure */
+        border: none;             /* Add this to be sure */
       }
       
       .vhs-tape:hover {
@@ -288,7 +290,6 @@ export function Work() {
       .vhs-tape.selected {
         transform: scale(1.3);
         // opacity: 0%;
-        filter: saturate(150%);
         z-index: 11;
       }
       
@@ -334,10 +335,12 @@ export function Work() {
       }
       
       .vhs-tape.selected .tape-spine-img {
+        filter: saturate(150%);
         box-shadow: 
           6px 3px 20px rgba(0,0,0,0.9),
           0 0 20px rgba(255, 200, 0, 0.3),
           inset 0 1px 0 rgba(255,255,255,0.2);
+
       }
       
       /* Responsive */

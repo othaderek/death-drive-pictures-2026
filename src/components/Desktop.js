@@ -332,7 +332,8 @@ export function openWindow(page) {
   // Define staggered positions for each window type
   const positionMap = {
     'landing': { offsetX: 0.65, offsetY: 0.1 },      // Right side, slightly up
-    'work': { offsetX: 0.25, offsetY: 0.2 },          // Left-center, more down
+    // 'work': { offsetX: 0.25, offsetY: 0.2 },          // Left-center, more down
+    'work': { offsetX: 0.5, offsetY: 0.05},
     'contact': { offsetX: 0.5, offsetY: 0.15 },       // Center-right, slightly up
     'about': { offsetX: 0.35, offsetY: 0.3 },         // Center-left, more down
   };
