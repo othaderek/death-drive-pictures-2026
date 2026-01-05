@@ -305,8 +305,8 @@ export function openWindow(page) {
     case 'work':
       title = 'Our Work';
       content = Work();
-      width = isSmallMobile ? window.innerWidth - 20 : isMobile ? 600 : 750;
-      height = isSmallMobile ? 500 : isMobile ? 500 : 550;
+      width = isSmallMobile ? window.innerWidth - 20 : isMobile ? 700 : 900;
+      height = isSmallMobile ? 500 : isMobile ? 500 : 600;
       break;
     case 'contact':
       title = 'Get In Touch';
@@ -356,6 +356,7 @@ export function openWindow(page) {
     x: x + randomOffsetX,
     y: y + randomOffsetY,
     className: `window-${page}`,
+    disableMaximize: page === 'work', // Disable maximize for Work window
     onClose: () => {
       desktopWindows = desktopWindows.filter(w => w.page !== page);
     }

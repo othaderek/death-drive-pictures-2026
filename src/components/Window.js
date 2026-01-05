@@ -10,7 +10,8 @@ export function createWindow(title, content, options = {}) {
     x = 100,
     y = 100,
     onClose = null,
-    className = ''
+    className = '',
+    disableMaximize = false
   } = options;
 
   const windowEl = document.createElement('div');
@@ -47,30 +48,33 @@ export function createWindow(title, content, options = {}) {
     windowEl.style.display = 'none';
   };
 
-  const maximizeBtn = document.createElement('button');
-  maximizeBtn.className = 'window-btn maximize';
-  maximizeBtn.title = 'Maximize';
-  maximizeBtn.innerHTML = '+';
-  maximizeBtn.onclick = (e) => {
-    e.stopPropagation();
-    if (windowEl.dataset.maximized === 'true') {
-      windowEl.style.width = `${width}px`;
-      windowEl.style.height = `${height}px`;
-      windowEl.style.left = `${x}px`;
-      windowEl.style.top = `${y}px`;
-      windowEl.dataset.maximized = 'false';
-    } else {
-      windowEl.style.width = 'calc(100vw - 40px)';
-      windowEl.style.height = 'calc(100vh - 140px)';
-      windowEl.style.left = '20px';
-      windowEl.style.top = '40px';
-      windowEl.dataset.maximized = 'true';
-    }
-  };
-
   controls.appendChild(closeBtn);
   controls.appendChild(minimizeBtn);
-  controls.appendChild(maximizeBtn);
+  
+  // Only add maximize button if not disabled
+  if (!disableMaximize) {
+    const maximizeBtn = document.createElement('button');
+    maximizeBtn.className = 'window-btn maximize';
+    maximizeBtn.title = 'Maximize';
+    maximizeBtn.innerHTML = '+';
+    maximizeBtn.onclick = (e) => {
+      e.stopPropagation();
+      if (windowEl.dataset.maximized === 'true') {
+        windowEl.style.width = `${width}px`;
+        windowEl.style.height = `${height}px`;
+        windowEl.style.left = `${x}px`;
+        windowEl.style.top = `${y}px`;
+        windowEl.dataset.maximized = 'false';
+      } else {
+        windowEl.style.width = 'calc(100vw - 40px)';
+        windowEl.style.height = 'calc(100vh - 140px)';
+        windowEl.style.left = '20px';
+        windowEl.style.top = '40px';
+        windowEl.dataset.maximized = 'true';
+      }
+    };
+    controls.appendChild(maximizeBtn);
+  }
   titlebar.appendChild(controls);
 
   const titleSpan = document.createElement('span');

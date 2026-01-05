@@ -38,9 +38,8 @@ export function Work() {
           <img src="/src/assets/tv/glass.jpg" alt="CRT Glass" class="crt-glass-overlay" />
         </div>
         
-        <div class="vcr-slot">
-          <div class="vcr-slot-opening" id="vcr-slot"></div>
-          <div class="vcr-label">VHS</div>
+        <div class="vhs-player">
+          <img src="/src/assets/tv/vhs_player_for_tv.png" alt="VHS Player" class="vhs-player-img" />
         </div>
       </div>
       
@@ -64,29 +63,38 @@ export function Work() {
     </div>
     
     <style>
+      .work-page {
+      overflow: hidden !important;
+      }
+      .window-content:has(.vhs-interface) {
+      overflow: hidden !important;
+      }
       .vhs-interface {
-        background: #0a0a0a;
+        background: url('/src/assets/tv/wall_for_tv.png') center center / cover no-repeat;
+        background-color: #0a0a0a; /* Fallback */
         min-height: 100%;
         max-height: calc(100vh - 40px);
         padding: 20px;
         font-family: 'Courier New', monospace;
         position: relative;
-        overflow-x: hidden;
-        overflow-y: auto;
         box-sizing: border-box;
         width: 100%;
         max-width: 100%;
+        overflow: hidden;
       }
       
       .vhs-layout {
         display: flex;
-        gap: 30px;
+        gap: 20px;
         align-items: stretch;
         justify-content: center;
         flex-wrap: nowrap;
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+        padding-top: 40px; /* Push content down */
+        transform: scale(1.2);
+        transform-origin: center top;
       }
       
       /* CRT Television */
@@ -95,14 +103,17 @@ export function Work() {
         position: relative;
         max-width: 100%;
         box-sizing: border-box;
+        
       }
       
       .crt-wrapper {
         position: relative;
         width: 100%;
-        max-width: 400px;
+        max-width: 300px; /* Reduced from 400px */
         max-height: 70vh;
         box-sizing: border-box;
+        transform: translateY(50px);
+        z-index: 2;
       }
       
       .crt-frame {
@@ -188,46 +199,37 @@ export function Work() {
         width: 100%;
         height: 100%;
         max-width: 100%;
-        opacity: 0.3;
+        opacity: 0.0;
         mix-blend-mode: overlay;
         pointer-events: none;
         z-index: 4;
         box-sizing: border-box;
       }
       
-      .vcr-slot {
-        background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-        margin-top: 10px;
-        padding: 10px 15px;
-        border-radius: 0 0 15px 15px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
+      .vhs-player {
         position: relative;
-        z-index: 1;
+        z-index: 0;
+        margin-top: -25px; /* Increased from -15px to close gap */
+        width: 100%;
+        max-width: 300px; /* Match CRT wrapper width */
+        transform: translateY(5px);
       }
       
-      .vcr-slot-opening {
-        flex: 1;
-        height: 12px;
-        background: #0a0a0a;
-        border-radius: 2px;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
-      }
-      
-      .vcr-label {
-        color: #555;
-        font-size: 10px;
-        letter-spacing: 2px;
+      .vhs-player-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-width: 100%;
       }
       
       /* VHS Tape Shelf */
       .vhs-shelf {
-        flex: 0 0 250px;
-        width: 250px;
+        flex: 0 0 275px;
+        width: 270px;
         max-width: 100%;
         max-height: 70vh;
         box-sizing: border-box;
+        transform: translateY(-60px);
       }
       
       .shelf-wrapper {
@@ -247,10 +249,10 @@ export function Work() {
       
       .tape-rack-container {
         position: absolute;
-        top: 5%;
+        top: 4%;
         left: 8%;
         width: 84%;
-        height: 90%;
+        height: 100%; /* Increased to fill more of shelf */
         z-index: 2;
         pointer-events: none;
       }
@@ -258,9 +260,9 @@ export function Work() {
       .tape-rack {
         display: flex;
         flex-direction: column;
-        gap: 1.5%;
+        gap: 0.5%; /* Small gap for alignment */
         height: 100%;
-        justify-content: space-between;
+        justify-content: flex-start; /* Keep tapes in bounds */
         pointer-events: auto;
       }
       
@@ -275,16 +277,18 @@ export function Work() {
         border-radius: 2px;
         overflow: visible;
         box-sizing: border-box;
-        flex-shrink: 0;
+        flex-shrink: 1; /* Allow shrinking to fit in shelf */
       }
       
       .vhs-tape:hover {
-        transform: translateX(-10px);
+        transform: scale(1.3);
         z-index: 10;
       }
       
       .vhs-tape.selected {
-        transform: translateX(-15px);
+        transform: scale(1.3);
+        // opacity: 0%;
+        filter: saturate(150%);
         z-index: 11;
       }
       
@@ -312,7 +316,7 @@ export function Work() {
          */
         left: calc(50% - var(--spine-height) / 2);
         top: 50%;
-        transform: translateY(-50%) rotate(-90deg);
+        transform: translateY(-50%) rotate(-90deg) scale(1.18);
         transform-origin: center center;
         border-radius: 2px;
         box-shadow: 
@@ -339,17 +343,17 @@ export function Work() {
       /* Responsive */
       @media (max-width: 1200px) {
         .vhs-layout {
-          gap: 25px;
+          gap: 15px;
         }
         
         .crt-wrapper {
-          max-width: 380px;
+          max-width: 280px;
           max-height: 65vh;
         }
         
         .vhs-shelf {
-          flex: 0 0 240px;
-          width: 240px;
+          flex: 0 0 180px;
+          width: 180px;
         }
       }
       
